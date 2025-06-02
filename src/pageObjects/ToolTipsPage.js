@@ -1,33 +1,37 @@
 import BasePage from './BasePage.js';
+import { expect } from '@playwright/test';
 
 export default class ToolTipsPage extends BasePage {
   constructor(page) {
     super(page);
-    this.toolTipButton = page.locator('#toolTipButton');
-    this.toolTipTextField = page.locator('#toolTipTextField');
-    this.toolTipLink1 = page.locator('#toolTipContrary');
-    this.toolTipLink2 = page.locator('#toolTip1');
+    this.page = page;
+    this.selectors = {
+      button: page.locator('#toolTipButton'),
+      field: page.locator('#toolTipTextField'),
+      contrary: page.locator('#toolTipContrary'),
+      number: page.locator('#toolTip1'),
+      tooltip: page.locator('.tooltip-inner')
+    };
   }
 
   async goto() {
     await this.page.goto('https://demoqa.com/tool-tips');
-    await this.toolTipButton.waitFor();
-    await this.toolTipTextField.waitFor();
+    await this.page.waitForLoadState('domcontentloaded');
   }
 
-  async hoverAndGetTooltipText(locator) {
-    await this.page.mouse.move(0, 0);
-    await this.page.waitForSelector('.tooltip-inner', { state: 'hidden' }).catch(() => {});
+  async hoverElement(key) {
+    const locator = this.selectors[key];
 
-    await locator.scrollIntoViewIfNeeded();
-    await locator.waitFor({ state: 'visible', timeout: 10000 });
-    await locator.hover();
-    await this.page.waitForSelector('.tooltip-inner', { state: 'visible' });
+    await locator.scrollIntoViewIfNeeded().catch(() => {});
+    await locator.waitFor({ state: 'visible', timeout: 5000 });
 
-    const text = await this.page.locator('.tooltip-inner').first().textContent();
-    await this.page.mouse.move(0, 0);
-    await this.page.waitForSelector('.tooltip-inner', { state: 'hidden' }).catch(() => {});
+    await locator.hover({ force: true });
+    await this.page.waitForSelector('.tooltip-inner', { state: 'visible', timeout: 5000 });
+  }
 
-    return text;
+  async getTooltipText(expectedText) {
+    const tooltip = this.selectors.tooltip.filter({ hasText: expectedText });
+    await expect(tooltip).toBeVisible({ timeout: 5000 });
+    return (await tooltip.textContent()).trim();
   }
 }

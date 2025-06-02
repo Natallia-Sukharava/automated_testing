@@ -11,7 +11,7 @@ test.describe('Practice Form Full Test', () => {
     await formPage.goto();
 
     const user = createUser({
-      phone: faker.string.numeric(10) 
+      phone: faker.string.numeric(10)
     });
 
     const formData = {
@@ -41,11 +41,6 @@ test.describe('Practice Form Full Test', () => {
     expect(result).toContain(formData.email);
     expect(result).toContain(formData.mobile);
 
-const closeBtn = page.locator('#closeLargeModal');
-if (await closeBtn.isVisible().catch(() => false)) {
-  await closeBtn.click();
-  await expect(closeBtn).toHaveCount(0, { timeout: 5000 });
-}
-
+    await formPage.closeModal();
   });
 });

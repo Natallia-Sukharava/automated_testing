@@ -12,11 +12,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'off',
   },
-  use: {
-    baseURL: 'https://demoqa.com',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-  },
+  
   projects: [
     {
       name: 'Desktop 1920x1080 (Chrome)',
@@ -35,6 +31,7 @@ export default defineConfig({
   ],
   reporters: [
     ['list'],
-    ['allure-playwright'],
-  ],
+    ['allure-playwright']
+  ],  
+
 });
