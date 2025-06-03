@@ -161,3 +161,10 @@ The project is configured to automatically run tests via GitHub Actions:
 - on pull request
 
 Test reports are saved as artifacts (allure-report folder)
+
+
+# Review 06 03
+* Add configuration how to launch with various resolutions and browsers.
+* Remove readme in russian language.
+* Move all locators to the Page Object Model.
+* 

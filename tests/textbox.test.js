@@ -9,7 +9,7 @@ test.describe('Text Box Form', () => {
     await textBoxPage.goto();
 
     const user = createUser();
-
+//TODO do not hardcode values
     const formData = {
       fullName: `${user.firstName} ${user.lastName}`,
       email: user.email,
