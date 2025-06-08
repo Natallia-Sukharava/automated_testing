@@ -1,5 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-import 'allure-playwright';
 
 export default defineConfig({
   testDir: './tests',
@@ -32,7 +31,6 @@ export default defineConfig({
   reporters: [
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
-    ['allure-playwright', { outputFolder: 'allure-results' }]
-  ],    
-
+    ['allure-playwright']
+  ],     
 });

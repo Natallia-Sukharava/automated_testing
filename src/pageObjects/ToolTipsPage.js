@@ -9,8 +9,7 @@ export default class ToolTipsPage extends BasePage {
       button: page.locator('#toolTipButton'),
       field: page.locator('#toolTipTextField'),
       contrary: page.locator('#toolTipContrary'),
-      number: page.locator('#toolTip1'),
-      tooltip: page.locator('.tooltip-inner')
+      number: page.locator('#toolTip1')
     };
   }
 
@@ -24,13 +23,12 @@ export default class ToolTipsPage extends BasePage {
 
     await locator.scrollIntoViewIfNeeded().catch(() => {});
     await locator.waitFor({ state: 'visible', timeout: 5000 });
-
     await locator.hover({ force: true });
-    await this.page.waitForSelector('.tooltip-inner', { state: 'visible', timeout: 5000 });
+    await this.page.waitForTimeout(700);
   }
 
   async getTooltipText(expectedText) {
-    const tooltip = this.selectors.tooltip.filter({ hasText: expectedText });
+    const tooltip = this.page.locator('.tooltip-inner', { hasText: expectedText });
     await expect(tooltip).toBeVisible({ timeout: 5000 });
     return (await tooltip.textContent()).trim();
   }
