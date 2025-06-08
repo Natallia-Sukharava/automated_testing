@@ -13,8 +13,8 @@ test.describe('Text Box Form', () => {
     const formData = {
       fullName: `${user.firstName} ${user.lastName}`,
       email: user.email,
-      currentAddress: '123 Main St',
-      permanentAddress: '456 Secondary Ave'
+      currentAddress: user.currentAddress,
+      permanentAddress: user.permanentAddress
     };
 
     await textBoxPage.fillForm(formData);

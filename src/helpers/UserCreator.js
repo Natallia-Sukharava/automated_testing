@@ -6,6 +6,8 @@ export function createUser(overrides = {}) {
     lastName: faker.person.lastName(),
     email: faker.internet.email(),
     phone: faker.phone.number('##########'),
+    currentAddress: `${faker.location.city()}, ${faker.location.buildingNumber()}`,
+    permanentAddress: `${faker.location.city()}, ${faker.location.buildingNumber()}`,
     ...overrides
   };
 }
